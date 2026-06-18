@@ -89,17 +89,13 @@
     revealEls.forEach(function (el) { io.observe(el); });
   }
 
-  /* ---------- Hero title: masked line reveal ---------- */
-  var lines = $$(".hero-title .line-in");
-  if (lines.length) {
-    if (reduced || !hasGSAP) {
-      lines.forEach(function (l) { l.style.transform = "none"; });
-    } else {
-      gsap.fromTo(lines,
-        { yPercent: 112 },
-        { yPercent: 0, duration: 1.15, ease: "expo.out", stagger: 0.12, delay: 0.15 }
-      );
-    }
+  /* Hero title reveal is handled purely in CSS (see @keyframes lineUp),
+     so it never depends on JS or GSAP loading. */
+
+  /* ---------- Reduced motion: hold hero video on its poster ---------- */
+  if (reduced) {
+    var heroVideo = $(".hero-video");
+    if (heroVideo) { try { heroVideo.pause(); } catch (e) {} heroVideo.removeAttribute("autoplay"); }
   }
 
   /* ---------- Parallax ---------- */

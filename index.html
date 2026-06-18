@@ -81,7 +81,16 @@
   </header>
 
   <!-- ───────────────── HERO ───────────────── -->
-  <section class="hero hero--split" data-hero>
+  <section class="hero" data-hero>
+    <div class="hero-media" aria-hidden="true">
+      <!-- self-hosted aerial drone footage (swap src to change) -->
+      <video class="hero-video" autoplay muted loop playsinline preload="auto"
+             poster="hero-coast.jpg">
+        <source src="hero-coast.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-scrim"></div>
+    </div>
+
     <div class="hero-inner">
       <p class="eyebrow" data-reveal>London · United Kingdom</p>
       <h1 class="hero-title">
@@ -97,19 +106,12 @@
         <a href="#contact" class="btn btn-primary" data-magnetic>Get in touch</a>
         <a href="#approach" class="btn btn-ghost" data-magnetic>About the firm</a>
       </div>
-      <a href="#about" class="scroll-cue" aria-label="Scroll to content">
-        <span>Scroll</span>
-        <span class="scroll-line"></span>
-      </a>
     </div>
 
-    <div class="hero-media" aria-hidden="true">
-      <!-- self-hosted aerial drone footage (swap src to change) -->
-      <video class="hero-video" autoplay muted loop playsinline preload="auto"
-             poster="hero-coast.jpg">
-        <source src="hero-coast.mp4" type="video/mp4" />
-      </video>
-    </div>
+    <a href="#about" class="scroll-cue" aria-label="Scroll to content">
+      <span>Scroll</span>
+      <span class="scroll-line"></span>
+    </a>
   </section>
 
   <!-- ───────────────── WHO WE ARE ───────────────── -->

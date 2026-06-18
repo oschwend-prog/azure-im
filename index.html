@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>azure IM — Boutique Investment Management</title>
+  <meta name="description" content="azure IM is a European alternative investment manager uncovering opportunities that go beyond the conventional — real estate, data centres, Southern European hospitality and capital raising." />
+
+  <!-- Open Graph / social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="azure IM — Boutique Investment Management" />
+  <meta property="og:description" content="A European alternative investment manager uncovering opportunities that go beyond the conventional." />
+  <meta property="og:url" content="https://www.azure-im.com/" />
+  <meta property="og:image" content="https://www.azure-im.com/assets/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#0c1830" />
+  <link rel="canonical" href="https://www.azure-im.com/" />
+
+  <!-- Favicon (inline SVG: azure droplet) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c1830'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='17' fill='%238fd0ee' text-anchor='middle'%3Ea%3C/text%3E%3C/svg%3E" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "azure IM Ltd.",
+    "description": "Boutique European alternative investment manager focused on real estate and infrastructure.",
+    "url": "https://www.azure-im.com",
+    "email": "olivier@azure-im.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "19 Queen's Gate, SW7 5JE",
+      "addressLocality": "London",
+      "addressCountry": "GB"
+    },
+    "areaServed": "Europe"
+  }
+  </script>
+
+  <!-- set .js as early as possible so animation states only apply with JS active -->
+  <script>document.documentElement.className = document.documentElement.className.replace('no-js','js');</script>
+</head>
+<body id="top">
+
+  <!-- duotone SVG filter (navy shadows → azure highlights) for treated photography -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="azure-duotone">
+      <feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0 0 0 1 0"/>
+      <feComponentTransfer color-interpolation-filters="sRGB">
+        <feFuncR tableValues="0.047 0.560" type="table"/>
+        <feFuncG tableValues="0.094 0.815" type="table"/>
+        <feFuncB tableValues="0.196 0.933" type="table"/>
+      </feComponentTransfer>
+    </filter>
+  </svg>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <!-- ───────────────── NAV ───────────────── -->
+  <header class="nav" data-nav>
+    <a href="#top" class="brand" aria-label="azure IM home">
+      <span>azure</span><span class="brand-mark--im">IM</span>
+    </a>
+    <nav class="nav-links" data-nav-menu aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#approach">Approach</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </nav>
+    <button class="nav-toggle" data-nav-toggle aria-label="Menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ───────────────── HERO ───────────────── -->
+  <section class="hero" data-hero>
+    <div class="hero-media" aria-hidden="true">
+      <div class="hero-photo" data-parallax="0.18"
+           style="background-image:url('https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=2400&amp;q=80&amp;auto=format&amp;fit=crop')"></div>
+      <div class="hero-scrim"></div>
+      <!-- living water at the base -->
+      <div class="sea">
+        <div class="sea-layer sea-1"></div>
+        <div class="sea-layer sea-2"></div>
+        <div class="sea-layer sea-3"></div>
+        <div class="sea-foam"></div>
+      </div>
+    </div>
+
+    <div class="hero-inner">
+      <p class="eyebrow" data-reveal>London · United Kingdom</p>
+      <h1 class="hero-title">
+        <span class="line"><span class="line-in">Boutique</span></span>
+        <span class="line"><span class="line-in">Investment</span></span>
+        <span class="line"><span class="line-in"><em>Management</em></span></span>
+      </h1>
+      <p class="hero-sub" data-reveal>
+        azure IM is a European alternative investment manager uncovering
+        opportunities that go beyond the conventional.
+      </p>
+      <div class="hero-actions" data-reveal>
+        <a href="#contact" class="btn btn-primary" data-magnetic>Get in touch</a>
+        <a href="#approach" class="btn btn-ghost" data-magnetic>About the firm</a>
+      </div>
+    </div>
+
+    <a href="#about" class="scroll-cue" aria-label="Scroll to content">
+      <span>Scroll</span>
+      <span class="scroll-line"></span>
+    </a>
+  </section>
+
+  <!-- ───────────────── WHO WE ARE ───────────────── -->
+  <section class="section who" id="about">
+    <p class="kicker" data-reveal>Who we are</p>
+    <div class="who-grid">
+      <div class="who-lede-col">
+        <p class="lede" data-reveal>
+          azure IM is pioneering a new era of real estate investment, targeting
+          opportunities driven by structural market trends showing favourable
+          supply–demand imbalances.
+        </p>
+        <figure class="who-photo" data-reveal>
+          <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1400&q=80&auto=format&fit=crop"
+               alt="Aerial view of London along the River Thames" loading="lazy" data-duotone />
+          <figcaption>London · United Kingdom</figcaption>
+        </figure>
+      </div>
+      <div class="who-body">
+        <p data-reveal>
+          Our fresh, forward-looking approach identifies untapped potential in
+          high-growth sectors, ensuring our strategies align with the evolving
+          needs of modern investors.
+        </p>
+        <p data-reveal>
+          Our approach is rooted in capitalizing on key trends—whether it's
+          urbanization, demographic shifts, or technological transformation—while
+          leveraging our deep understanding of Europe's dynamic and diverse real
+          estate landscape. By combining local market knowledge and data-driven
+          insights with strategic execution, we deliver resilient and superior
+          returns across economic cycles.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────── PULL-QUOTE BAND (dark) ───────────────── -->
+  <section class="quote-band" aria-label="azure IM ethos">
+    <div class="quote-bg" data-parallax="0.22" aria-hidden="true"
+         style="background-image:url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=2400&amp;q=80&amp;auto=format&amp;fit=crop')"></div>
+    <div class="quote-scrim" aria-hidden="true"></div>
+    <blockquote class="quote-inner">
+      <p class="quote-text" data-reveal>
+        High-conviction themes, <em>executed with precision.</em>
+      </p>
+      <footer class="quote-cite" data-reveal>azure IM — investment philosophy</footer>
+    </blockquote>
+  </section>
+
+  <!-- ───────────────── APPROACH / ABOUT THE FIRM ───────────────── -->
+  <section class="section approach" id="approach">
+    <div class="approach-grid">
+      <figure class="approach-visual" data-reveal>
+        <div class="approach-frame">
+          <img src="https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=1400&q=80&auto=format&fit=crop"
+               alt="Aerial coastline — structural opportunity" loading="lazy" data-parallax="0.12" data-duotone />
+          <div class="approach-glow" aria-hidden="true"></div>
+        </div>
+      </figure>
+      <div class="approach-text">
+        <p class="kicker" data-reveal>About the firm</p>
+        <h2 class="section-title" data-reveal>High-conviction themes, executed with precision.</h2>
+        <p data-reveal>
+          At azure IM, we are a dynamic London-based real estate investment
+          manager established to exclusively focus on high-conviction themes and
+          committed to unlocking value within the property markets across the UK
+          and Europe.
+        </p>
+        <p data-reveal>
+          With a focus on opportunities driven by structural trends and imbalances
+          in supply and demand, we specialize in sourcing, acquiring and managing
+          high-potential real estate and infrastructure assets—reshaping
+          investment strategies with precision and excellence.
+        </p>
+        <a href="#contact" class="text-link" data-reveal data-magnetic>
+          Start a conversation
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────── CONTACT ───────────────── -->
+  <section class="section contact" id="contact">
+    <p class="kicker kicker--center" data-reveal>Get started</p>
+    <h2 class="contact-title" data-reveal>Let's talk opportunity.</h2>
+    <p class="contact-sub" data-reveal>
+      For partnership, capital raising and investment enquiries, reach out directly.
+    </p>
+    <a href="mailto:olivier@azure-im.com" class="contact-mail" data-reveal>olivier@azure-im.com</a>
+
+    <form class="contact-form" data-reveal data-contact-form
+          action="https://formspree.io/f/your-form-id" method="POST">
+      <div class="field">
+        <input type="text" id="name" name="name" placeholder=" " required />
+        <label for="name">Name</label>
+      </div>
+      <div class="field">
+        <input type="email" id="email" name="email" placeholder=" " required />
+        <label for="email">Email</label>
+      </div>
+      <div class="field field--full">
+        <textarea id="message" name="message" rows="3" placeholder=" " required></textarea>
+        <label for="message">How can we help?</label>
+      </div>
+      <button type="submit" class="btn btn-primary" data-magnetic>Send enquiry</button>
+      <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <!-- ───────────────── FOOTER ───────────────── -->
+  <footer class="footer">
+    <div class="footer-top">
+      <a href="#top" class="brand brand--footer">
+        <span>azure</span><span class="brand-mark--im">IM</span>
+      </a>
+      <address class="footer-address">
+        azure IM Ltd.<br />
+        19 Queen's Gate, SW7 5JE<br />
+        London, United Kingdom
+      </address>
+    </div>
+    <div class="footer-bottom">
+      <span>©2026 azure IM Ltd.</span>
+      <a href="mailto:olivier@azure-im.com">olivier@azure-im.com</a>
+    </div>
+  </footer>
+
+  <!-- Smooth scroll + animation (progressive enhancement) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+  <script src="main.js" defer></script>
+</body>
+</html>

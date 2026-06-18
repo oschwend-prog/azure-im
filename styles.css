@@ -83,8 +83,8 @@ img { display: block; max-width: 100%; }
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   padding: clamp(1rem, 2vw, 1.6rem) var(--pad);
-  transition: padding 0.4s var(--ease), background 0.4s var(--ease),
-              box-shadow 0.4s var(--ease);
+  transition: padding 0.4s var(--ease), background 0.25s var(--ease),
+              box-shadow 0.25s var(--ease);
 }
 .nav.scrolled {
   padding-top: 0.85rem; padding-bottom: 0.85rem;
@@ -118,7 +118,7 @@ img { display: block; max-width: 100%; }
 .nav-links a:hover { color: #fff; }
 .nav-cta {
   border: 1px solid rgba(255, 255, 255, 0.35);
-  padding: 0.5rem 1.1rem; border-radius: 100px;
+  padding: 0.72rem 1.25rem; border-radius: 100px;
   transition: background 0.3s, border-color 0.3s, color 0.3s;
 }
 .nav-cta:hover { background: var(--azure); border-color: var(--azure); color: #fff; }
@@ -160,7 +160,8 @@ img { display: block; max-width: 100%; }
 }
 .eyebrow {
   text-transform: uppercase; letter-spacing: 0.28em; font-size: 0.72rem;
-  font-weight: 500; color: var(--azure-lt); margin-bottom: 1.6rem;
+  font-weight: 600; color: var(--azure-lt); margin-bottom: 1.6rem;
+  text-shadow: 0 1px 14px rgba(12, 24, 48, 0.55);
 }
 .hero-title {
   font-family: var(--serif); font-weight: 300;
@@ -182,8 +183,8 @@ img { display: block; max-width: 100%; }
 
 .hero-sub {
   font-size: clamp(1.05rem, 1.4vw, 1.3rem); max-width: 38ch;
-  color: rgba(255, 255, 255, 0.82); font-weight: 300; line-height: 1.55;
-  margin-bottom: 2.4rem;
+  color: rgba(255, 255, 255, 0.92); font-weight: 400; line-height: 1.55;
+  margin-bottom: 2.4rem; text-shadow: 0 1px 18px rgba(12, 24, 48, 0.4);
 }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
 
@@ -195,7 +196,7 @@ img { display: block; max-width: 100%; }
     color .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease),
     transform .25s var(--ease);
 }
-.btn-primary { background: var(--azure); color: #fff; }
+.btn-primary { background: var(--azure); color: var(--navy-900); }
 .btn-primary:hover {
   background: var(--azure-lt); color: var(--navy-900);
   box-shadow: 0 14px 34px -10px rgba(74, 163, 216, 0.6);
@@ -221,7 +222,7 @@ img { display: block; max-width: 100%; }
 
 .kicker {
   display: inline-block; text-transform: uppercase; letter-spacing: 0.24em;
-  font-size: 0.72rem; font-weight: 600; color: var(--azure-dp);
+  font-size: 0.72rem; font-weight: 600; color: #1b5478;
   margin-bottom: 1.4rem; position: relative; padding-left: 2.6rem;
 }
 .kicker::before {

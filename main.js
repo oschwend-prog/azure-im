@@ -49,6 +49,7 @@
       var h = document.documentElement.scrollHeight - window.innerHeight;
       progress.style.width = (h > 0 ? (y / h) * 100 : 0) + "%";
     }
+    revealInView();
   }
   if (lenis) lenis.on("scroll", function (e) { onScroll(e.scroll); });
   window.addEventListener("scroll", function () { if (!lenis) onScroll(); }, { passive: true });
@@ -88,6 +89,20 @@
     }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
     revealEls.forEach(function (el) { io.observe(el); });
   }
+
+  /* Fail-safe: also reveal through the (reliable) scroll handler and on load,
+     so a section is never left hidden if the observer misfires. */
+  function revealInView() {
+    if (!revealEls) return;
+    for (var i = 0; i < revealEls.length; i++) {
+      var el = revealEls[i];
+      if (el.classList.contains("in")) continue;
+      var r = el.getBoundingClientRect();
+      if (r.top < (window.innerHeight || 0) * 0.92 && r.bottom > -40) el.classList.add("in");
+    }
+  }
+  revealInView();
+  window.addEventListener("load", function () { revealInView(); setTimeout(revealInView, 500); });
 
   /* Hero title reveal is handled purely in CSS (see @keyframes lineUp),
      so it never depends on JS or GSAP loading. */

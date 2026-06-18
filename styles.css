@@ -96,73 +96,79 @@ img { display: block; max-width: 100%; }
 .brand {
   font-family: var(--sans);
   font-weight: 600; font-size: 1.4rem; letter-spacing: -0.02em;
-  color: #fff; display: inline-flex; align-items: baseline; gap: 0.28em;
-  transition: opacity 0.3s;
+  color: var(--ink); display: inline-flex; align-items: baseline; gap: 0.28em;
+  transition: opacity 0.3s, color 0.4s var(--ease);
 }
 .brand:hover { opacity: 0.82; }
 .brand-mark--im {
-  color: #fff; font-weight: 600;
-  letter-spacing: 0.04em; font-size: 0.95em;
+  color: var(--ink); font-weight: 600;
+  letter-spacing: 0.04em; font-size: 0.95em; transition: color 0.4s var(--ease);
 }
+/* once the navy nav bar appears on scroll, flip the wordmark to white */
+.nav.scrolled .brand, .nav.scrolled .brand-mark--im { color: #fff; }
 
 .nav-links { display: flex; align-items: center; gap: clamp(1.4rem, 3vw, 2.6rem); }
 .nav-links a {
-  color: rgba(255, 255, 255, 0.82); font-size: 0.92rem; font-weight: 500;
+  color: var(--ink-soft); font-size: 0.92rem; font-weight: 500;
   letter-spacing: 0.01em; position: relative; transition: color 0.3s;
 }
+.nav.scrolled .nav-links a { color: rgba(255,255,255,0.82); }
 .nav-links a:not(.nav-cta)::after {
   content: ""; position: absolute; left: 0; bottom: -5px; height: 1px; width: 0;
   background: var(--azure-lt); transition: width 0.35s var(--ease);
 }
 .nav-links a:not(.nav-cta):hover::after { width: 100%; }
-.nav-links a:hover { color: #fff; }
+.nav-links a:hover { color: var(--ink); }
+.nav.scrolled .nav-links a:hover { color: #fff; }
 .nav-cta {
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(20, 33, 59, 0.3);
   padding: 0.5rem 1.1rem; border-radius: 100px;
   transition: background 0.3s, border-color 0.3s, color 0.3s;
 }
+.nav.scrolled .nav-cta { border-color: rgba(255, 255, 255, 0.35); }
 .nav-cta:hover { background: var(--azure); border-color: var(--azure); color: #fff; }
 
 .nav-toggle { display: none; background: none; border: 0; cursor: pointer;
   width: 30px; height: 22px; position: relative; z-index: 110; }
 .nav-toggle span {
-  position: absolute; left: 0; height: 2px; width: 100%; background: #fff;
-  transition: transform 0.35s var(--ease), opacity 0.3s;
+  position: absolute; left: 0; height: 2px; width: 100%; background: var(--ink);
+  transition: transform 0.35s var(--ease), opacity 0.3s, background 0.4s var(--ease);
 }
+.nav.scrolled .nav-toggle span,
+.nav-toggle[aria-expanded="true"] span { background: #fff; }
 .nav-toggle span:first-child { top: 4px; }
 .nav-toggle span:last-child { bottom: 4px; }
 .nav-toggle[aria-expanded="true"] span:first-child { transform: translateY(6px) rotate(45deg); }
 .nav-toggle[aria-expanded="true"] span:last-child { transform: translateY(-6px) rotate(-45deg); }
 
 /* ───────────────── HERO ───────────────── */
+/* Split hero: light text panel (black headline) + aerial video panel */
 .hero {
   position: relative; min-height: 100svh;
-  background: var(--navy-800); color: #fff; overflow: hidden;
-  display: flex; align-items: center;
+  background: var(--cream); color: var(--ink); overflow: hidden;
+  display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: stretch;
 }
-.hero-media { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: var(--navy-800); }
-/* real aerial drone footage of surf on the shore */
+.hero-media { position: relative; overflow: hidden; background: var(--navy-800); }
 .hero-video {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: center;
-  /* gently cooled + desaturated so it reads navy, never "tropical" */
-  filter: saturate(0.82) brightness(0.92) contrast(1.02);
+  filter: saturate(0.92) contrast(1.02);
 }
-.hero-scrim {
-  position: absolute; inset: 0;
-  background:
-    linear-gradient(100deg, var(--navy-900) 0%, rgba(12,24,48,0.80) 30%,
-      rgba(12,24,48,0.34) 62%, rgba(12,24,48,0.06) 100%),
-    linear-gradient(0deg, rgba(12,24,48,0.55) 0%, transparent 30%);
+/* feather the seam where the video meets the cream panel */
+.hero-media::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, var(--cream) 0%, rgba(244,241,234,0) 16%);
 }
+.hero-scrim { display: none; }
 
 .hero-inner {
-  position: relative; z-index: 3; max-width: var(--maxw); width: 100%;
-  margin: 0 auto; padding: 8rem var(--pad) 7rem;
+  position: relative; z-index: 3; align-self: center; width: 100%;
+  max-width: 660px; margin-left: auto;
+  padding: 7rem clamp(2rem, 5vw, 4.5rem) 7rem clamp(1.4rem, 6vw, 6rem);
 }
 .eyebrow {
   text-transform: uppercase; letter-spacing: 0.28em; font-size: 0.72rem;
-  font-weight: 500; color: var(--azure-lt); margin-bottom: 1.6rem;
+  font-weight: 600; color: var(--azure-dp); margin-bottom: 1.6rem;
 }
 .hero-title {
   font-family: var(--serif); font-weight: 300;
@@ -171,7 +177,7 @@ img { display: block; max-width: 100%; }
 }
 .hero-title .line { display: block; overflow: hidden; padding-bottom: 0.08em; }
 .hero-title .line-in { display: block; will-change: transform; }
-.hero-title em { color: #fff; font-weight: 400; }
+.hero-title em { color: var(--ink); font-weight: 400; }
 /* Masked line reveal — pure CSS so the headline is NEVER dependent on JS.
    Default state (no animation support) = transform:none = fully visible.
    The hidden start only exists inside the keyframes, so it can't get stuck. */
@@ -183,8 +189,8 @@ img { display: block; max-width: 100%; }
 @keyframes lineUp { from { transform: translateY(112%); } to { transform: translateY(0); } }
 
 .hero-sub {
-  font-size: clamp(1.05rem, 1.4vw, 1.3rem); max-width: 38ch;
-  color: rgba(255, 255, 255, 0.82); font-weight: 300; line-height: 1.55;
+  font-size: clamp(1.05rem, 1.4vw, 1.3rem); max-width: 40ch;
+  color: var(--ink-soft); font-weight: 400; line-height: 1.6;
   margin-bottom: 2.4rem;
 }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
@@ -202,19 +208,19 @@ img { display: block; max-width: 100%; }
   background: var(--azure-lt); color: var(--navy-900);
   box-shadow: 0 14px 34px -10px rgba(74, 163, 216, 0.6);
 }
-.btn-ghost { border-color: rgba(255, 255, 255, 0.3); color: #fff; }
-.btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,0.06); }
+.btn-ghost { border-color: rgba(20, 33, 59, 0.28); color: var(--ink); }
+.btn-ghost:hover { border-color: var(--ink); background: rgba(20,33,59,0.05); }
 
 .scroll-cue {
-  position: absolute; bottom: 2.2rem; left: 50%; transform: translateX(-50%);
-  z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 0.7rem;
+  position: relative; margin-top: 3rem;
+  z-index: 3; display: inline-flex; flex-direction: column; align-items: flex-start; gap: 0.7rem;
   font-size: 0.66rem; letter-spacing: 0.25em; text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.62);
+  color: var(--ink-soft);
 }
-.scroll-line { width: 1px; height: 46px; background: rgba(255,255,255,0.3); position: relative; overflow: hidden; }
+.scroll-line { width: 1px; height: 46px; background: rgba(20,33,59,0.25); position: relative; overflow: hidden; }
 .scroll-line::after {
   content: ""; position: absolute; top: -50%; left: 0; width: 100%; height: 50%;
-  background: var(--azure-lt); animation: scrolldown 2.2s var(--ease) infinite;
+  background: var(--azure-dp); animation: scrolldown 2.2s var(--ease) infinite;
 }
 @keyframes scrolldown { 0% { top: -50%; } 100% { top: 100%; } }
 
@@ -400,6 +406,14 @@ html.js [data-reveal].in { opacity: 1; transform: none; }
 @media (max-width: 940px) {
   .who-grid, .approach-grid { grid-template-columns: 1fr; }
   .approach-visual { aspect-ratio: 16 / 11; order: -1; max-height: 60vh; }
+
+  /* hero stacks: text first, video panel below */
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-inner { max-width: none; margin: 0; padding: 8rem var(--pad) 3rem; }
+  .hero-media { min-height: 56vh; }
+  .hero-media::before {
+    background: linear-gradient(0deg, var(--cream) 0%, rgba(244,241,234,0) 18%);
+  }
 
   .nav-links {
     position: fixed; inset: 0 0 0 auto; width: min(78vw, 320px);

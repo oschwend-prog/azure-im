@@ -81,17 +81,7 @@
   </header>
 
   <!-- ───────────────── HERO ───────────────── -->
-  <section class="hero" data-hero>
-    <div class="hero-media" aria-hidden="true">
-      <!-- aerial drone footage: waves breaking on a sandy beach (swap src to change) -->
-      <video class="hero-video" autoplay muted loop playsinline preload="auto"
-             poster="hero-coast.jpg">
-        <!-- self-hosted aerial drone footage: top-down surf on the shore -->
-        <source src="hero-coast.mp4" type="video/mp4" />
-      </video>
-      <div class="hero-scrim"></div>
-    </div>
-
+  <section class="hero hero--split" data-hero>
     <div class="hero-inner">
       <p class="eyebrow" data-reveal>London · United Kingdom</p>
       <h1 class="hero-title">
@@ -107,12 +97,19 @@
         <a href="#contact" class="btn btn-primary" data-magnetic>Get in touch</a>
         <a href="#approach" class="btn btn-ghost" data-magnetic>About the firm</a>
       </div>
+      <a href="#about" class="scroll-cue" aria-label="Scroll to content">
+        <span>Scroll</span>
+        <span class="scroll-line"></span>
+      </a>
     </div>
 
-    <a href="#about" class="scroll-cue" aria-label="Scroll to content">
-      <span>Scroll</span>
-      <span class="scroll-line"></span>
-    </a>
+    <div class="hero-media" aria-hidden="true">
+      <!-- self-hosted aerial drone footage (swap src to change) -->
+      <video class="hero-video" autoplay muted loop playsinline preload="auto"
+             poster="hero-coast.jpg">
+        <source src="hero-coast.mp4" type="video/mp4" />
+      </video>
+    </div>
   </section>
 
   <!-- ───────────────── WHO WE ARE ───────────────── -->
@@ -167,8 +164,8 @@
     <div class="approach-grid">
       <figure class="approach-visual" data-reveal>
         <div class="approach-frame">
-          <img src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?w=1400&q=80&auto=format&fit=crop"
-               alt="London — Westminster and the River Thames" loading="lazy" data-parallax="0.12" data-duotone />
+          <img src="https://images.unsplash.com/photo-1659707124402-1fdbd5a8e9c7?w=1400&q=80&auto=format&fit=crop"
+               alt="Canary Wharf — London's financial district" loading="lazy" data-parallax="0.12" data-duotone />
           <div class="approach-glow" aria-hidden="true"></div>
         </div>
       </figure>

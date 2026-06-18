@@ -95,9 +95,10 @@
     if (reduced || !hasGSAP) {
       lines.forEach(function (l) { l.style.transform = "none"; });
     } else {
-      gsap.to(lines, {
-        yPercent: 0, duration: 1.15, ease: "expo.out", stagger: 0.12, delay: 0.15
-      });
+      gsap.fromTo(lines,
+        { yPercent: 112 },
+        { yPercent: 0, duration: 1.15, ease: "expo.out", stagger: 0.12, delay: 0.15 }
+      );
     }
   }
 

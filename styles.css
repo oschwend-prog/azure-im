@@ -101,8 +101,10 @@ img { display: block; max-width: 100%; }
 }
 .brand:hover { opacity: 0.82; }
 .brand-mark--im {
-  color: #fff; font-weight: 600;
+  color: #000; font-weight: 700;
   letter-spacing: 0.04em; font-size: 0.95em;
+  /* black, kept legible over the dark hero/nav with a soft light edge */
+  text-shadow: 0 0 1px rgba(255,255,255,0.9), 0 0 10px rgba(255,255,255,0.5);
 }
 
 .nav-links { display: flex; align-items: center; gap: clamp(1.4rem, 3vw, 2.6rem); }
@@ -170,7 +172,11 @@ img { display: block; max-width: 100%; }
 }
 .hero-title .line { display: block; overflow: hidden; padding-bottom: 0.08em; }
 .hero-title .line-in { display: block; will-change: transform; }
-.hero-title em { color: #fff; font-weight: 400; }
+.hero-title em {
+  color: #000; font-weight: 400;
+  /* black "Management", kept legible on the dark video with a soft light edge */
+  text-shadow: 0 0 2px rgba(255,255,255,0.7), 0 0 26px rgba(255,255,255,0.45);
+}
 /* Masked line reveal — pure CSS so the headline is NEVER dependent on JS.
    Default state (no animation support) = transform:none = fully visible.
    The hidden start only exists inside the keyframes, so it can't get stuck. */

@@ -315,6 +315,9 @@ img { display: block; max-width: 100%; }
   position: absolute; inset: -8%; width: 116%; height: 116%;
   object-fit: cover; will-change: transform;
 }
+/* lighter, cooler duotone so the About-the-firm cityscape reads distinctly
+   from the deep-navy London image */
+.approach-frame img[data-duotone] { filter: url(#azure-duotone-2) contrast(1.03); }
 .approach-glow {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: radial-gradient(70% 60% at 30% 20%, rgba(74,163,216,0.28), transparent 60%);

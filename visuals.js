@@ -71,15 +71,15 @@
     function vis(p) { var r = proj.rotate(); return d3.geoDistance(p, [-r[0], -r[1]]) < Math.PI / 2; }
     function draw() {
       ctx.clearRect(0, 0, W, H);
-      path({ type: "Sphere" });
+      ctx.beginPath(); path({ type: "Sphere" });
       var g = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.4, R * 0.1, cx, cy, R);
       g.addColorStop(0, "#163059"); g.addColorStop(1, "#0a172e"); ctx.fillStyle = g; ctx.fill();
-      path(grat); ctx.strokeStyle = "rgba(120,180,225,0.10)"; ctx.lineWidth = 0.5; ctx.stroke();
+      ctx.beginPath(); path(grat); ctx.strokeStyle = "rgba(120,180,225,0.10)"; ctx.lineWidth = 0.5; ctx.stroke();
       if (land) {
-        path(land); ctx.fillStyle = "rgba(33,62,102,0.95)"; ctx.fill();
-        path(borders); ctx.strokeStyle = "rgba(125,195,238,0.30)"; ctx.lineWidth = 0.5; ctx.stroke();
+        ctx.beginPath(); path(land); ctx.fillStyle = "rgba(33,62,102,0.95)"; ctx.fill();
+        ctx.beginPath(); path(borders); ctx.strokeStyle = "rgba(125,195,238,0.30)"; ctx.lineWidth = 0.5; ctx.stroke();
       }
-      ctx.save(); path({ type: "Sphere" }); ctx.clip();
+      ctx.save(); ctx.beginPath(); path({ type: "Sphere" }); ctx.clip();
       var sg = ctx.createRadialGradient(cx - R * 0.55, cy - R * 0.6, R * 0.15, cx + R * 0.3, cy + R * 0.35, R * 1.55);
       sg.addColorStop(0, "rgba(150,200,240,0.12)"); sg.addColorStop(0.45, "rgba(10,18,36,0)"); sg.addColorStop(1, "rgba(3,7,16,0.66)");
       ctx.fillStyle = sg; ctx.fillRect(0, 0, W, H); ctx.restore();

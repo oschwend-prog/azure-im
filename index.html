@@ -150,8 +150,7 @@
 
   <!-- ───────────────── PULL-QUOTE BAND (dark) ───────────────── -->
   <section class="quote-band" aria-label="azure IM ethos">
-    <div class="quote-bg" data-parallax="0.22" aria-hidden="true"
-         style="background-image:url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=2400&amp;q=80&amp;auto=format&amp;fit=crop')"></div>
+    <canvas class="currents-canvas" data-currents aria-hidden="true"></canvas>
     <div class="quote-scrim" aria-hidden="true"></div>
     <blockquote class="quote-inner">
       <p class="quote-text" data-reveal>
@@ -193,6 +192,24 @@
           </svg>
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- ───────────────── DIGITAL INFRASTRUCTURE ───────────────── -->
+  <section class="infra" id="infrastructure">
+    <div class="infra-inner">
+      <div class="infra-text">
+        <p class="kicker" data-reveal>Digital infrastructure</p>
+        <h2 class="section-title" data-reveal>The backbone beneath the opportunity.</h2>
+        <p data-reveal>
+          From powered land to data centres, we back the physical assets carrying
+          the digital economy — where connectivity, capital and structural demand
+          converge.
+        </p>
+      </div>
+      <figure class="infra-globe" data-reveal>
+        <canvas data-globe aria-hidden="true"></canvas>
+      </figure>
     </div>
   </section>
 
@@ -247,5 +264,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
   <script src="main.js" defer></script>
+
+  <!-- Generative visuals (azure currents + digital-infrastructure globe) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js" defer></script>
+  <script src="visuals.js" defer></script>
 </body>
 </html>

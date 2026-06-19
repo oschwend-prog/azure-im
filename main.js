@@ -148,7 +148,7 @@
           "Email: " + (data.get("email") || "") + "\n\n" +
           (data.get("message") || "")
         );
-        window.location.href = "mailto:olivier@azure-im.com?subject=" + subject + "&body=" + body;
+        window.location.href = "mailto:info@azure-im.com?subject=" + subject + "&body=" + body;
         if (status) { status.textContent = "Opening your email app…"; status.className = "form-status ok"; }
         return;
       }
@@ -160,11 +160,11 @@
             form.reset();
             if (status) { status.textContent = "Thank you — we'll be in touch shortly."; status.className = "form-status ok"; }
           } else {
-            if (status) { status.textContent = "Something went wrong. Please email olivier@azure-im.com."; status.className = "form-status err"; }
+            if (status) { status.textContent = "Something went wrong. Please email info@azure-im.com."; status.className = "form-status err"; }
           }
         })
         .catch(function () {
-          if (status) { status.textContent = "Network error. Please email olivier@azure-im.com."; status.className = "form-status err"; }
+          if (status) { status.textContent = "Network error. Please email info@azure-im.com."; status.className = "form-status err"; }
         });
     });
   }

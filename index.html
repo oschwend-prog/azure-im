@@ -115,25 +115,22 @@
           <svg class="hero-water" viewBox="0 0 620 134" preserveAspectRatio="xMinYMax meet"
                role="img" aria-label="Management">
             <defs>
+              <!-- coastline still that fills the letters; pattern fill on <text> is robust everywhere
+                   (incl. iOS Safari), unlike a masked <foreignObject> video -->
+              <pattern id="hero-water-fill" patternUnits="userSpaceOnUse" x="0" y="0" width="620" height="134">
+                <image href="hero-poster.jpg" xlink:href="hero-poster.jpg"
+                       x="0" y="0" width="620" height="134" preserveAspectRatio="xMidYMid slice" />
+              </pattern>
+              <!-- mask used only by the JS-injected video on engines that render it correctly -->
               <mask id="hero-water-mask">
                 <text x="0" y="104" class="hero-water-glyph" fill="#fff">Management</text>
               </mask>
             </defs>
-            <!-- ultimate fallback: solid azure, only seen if even the still can't load -->
+            <!-- ultimate fallback: solid azure, only seen if the still can't load -->
             <text x="0" y="104" class="hero-water-glyph hero-water-fallback">Management</text>
-            <!-- static water still (poster) masked into the letters — renders everywhere, incl. iOS Safari
-                 (which won't play a <video> inside <foreignObject>) -->
-            <g mask="url(#hero-water-mask)">
-              <image href="hero-poster.jpg" xlink:href="hero-poster.jpg"
-                     x="0" y="0" width="620" height="134" preserveAspectRatio="xMidYMid slice" />
-            </g>
-            <!-- moving water (video) layered on top where supported (desktop browsers) -->
-            <foreignObject x="0" y="0" width="620" height="134" mask="url(#hero-water-mask)">
-              <video xmlns="http://www.w3.org/1999/xhtml" class="hero-water-video"
-                     autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg">
-                <source src="hero-1080.mp4" type="video/mp4" />
-              </video>
-            </foreignObject>
+            <!-- water-filled word (static still). main.js layers a <video> over this on engines that
+                 render masked SVG video correctly; iOS Safari keeps this static fill. -->
+            <text x="0" y="104" class="hero-water-glyph" fill="url(#hero-water-fill)">Management</text>
           </svg>
         </span></span>
       </h1>

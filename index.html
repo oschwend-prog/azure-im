@@ -119,9 +119,15 @@
                 <text x="0" y="104" class="hero-water-glyph" fill="#fff">Management</text>
               </mask>
             </defs>
-            <!-- fallback fill: shows if the video can't paint (no-JS, reduced-motion, decode fail) -->
+            <!-- ultimate fallback: solid azure, only seen if even the still can't load -->
             <text x="0" y="104" class="hero-water-glyph hero-water-fallback">Management</text>
-            <!-- the word's own copy of the coastline footage, revealed only through the letters -->
+            <!-- static water still (poster) masked into the letters — renders everywhere, incl. iOS Safari
+                 (which won't play a <video> inside <foreignObject>) -->
+            <g mask="url(#hero-water-mask)">
+              <image href="hero-poster.jpg" xlink:href="hero-poster.jpg"
+                     x="0" y="0" width="620" height="134" preserveAspectRatio="xMidYMid slice" />
+            </g>
+            <!-- moving water (video) layered on top where supported (desktop browsers) -->
             <foreignObject x="0" y="0" width="620" height="134" mask="url(#hero-water-mask)">
               <video xmlns="http://www.w3.org/1999/xhtml" class="hero-water-video"
                      autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg">

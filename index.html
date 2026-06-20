@@ -111,7 +111,25 @@
       <h1 class="hero-title">
         <span class="line"><span class="line-in">Boutique</span></span>
         <span class="line"><span class="line-in">Investment</span></span>
-        <span class="line"><span class="line-in"><em>Management</em></span></span>
+        <span class="line line--water"><span class="line-in">
+          <svg class="hero-water" viewBox="0 0 620 134" preserveAspectRatio="xMinYMax meet"
+               role="img" aria-label="Management">
+            <defs>
+              <mask id="hero-water-mask">
+                <text x="0" y="104" class="hero-water-glyph" fill="#fff">Management</text>
+              </mask>
+            </defs>
+            <!-- fallback fill: shows if the video can't paint (no-JS, reduced-motion, decode fail) -->
+            <text x="0" y="104" class="hero-water-glyph hero-water-fallback">Management</text>
+            <!-- the word's own copy of the coastline footage, revealed only through the letters -->
+            <foreignObject x="0" y="0" width="620" height="134" mask="url(#hero-water-mask)">
+              <video xmlns="http://www.w3.org/1999/xhtml" class="hero-water-video"
+                     autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg">
+                <source src="hero-1080.mp4" type="video/mp4" />
+              </video>
+            </foreignObject>
+          </svg>
+        </span></span>
       </h1>
       <p class="hero-sub" data-reveal>
         A European real estate and infrastructure specialist — investment

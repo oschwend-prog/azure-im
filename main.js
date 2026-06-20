@@ -116,6 +116,34 @@
     });
   }
 
+  /* ---------- Hero settle (short pin + scrub) ----------
+     The hero sinks as you enter: video pushes in, the headline drifts up and
+     recedes, then it releases into the page. Enhancement only — without GSAP or
+     with reduced-motion the hero just scrolls normally. */
+  if (hasGSAP && !reduced) {
+    var heroEl = $("[data-hero]");
+    var heroInner = $(".hero-inner");
+    var heroVideoEl = $(".hero-video");
+    var heroCue = $(".scroll-cue");
+    if (heroEl && heroInner) {
+      var heroTL = gsap.timeline({
+        scrollTrigger: {
+          trigger: heroEl,
+          start: "top top",
+          end: "+=62%",
+          scrub: 0.6,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true
+        }
+      });
+      heroTL.to(heroInner, { yPercent: -7, opacity: 0, ease: "none" }, 0);
+      if (heroVideoEl) heroTL.to(heroVideoEl, { scale: 1.12, ease: "none" }, 0);
+      if (heroCue) heroTL.to(heroCue, { opacity: 0, ease: "none", duration: 0.35 }, 0);
+    }
+  }
+
   /* ---------- Magnetic buttons ---------- */
   if (!reduced && window.matchMedia("(hover: hover)").matches) {
     $$("[data-magnetic]").forEach(function (el) {

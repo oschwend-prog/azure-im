@@ -56,7 +56,7 @@
     var c = document.querySelector("[data-globe]");
     if (!c || !window.d3 || !window.topojson) return;
     var ctx = c.getContext("2d"), DPR = Math.min(2, window.devicePixelRatio || 1);
-    var W, H, R, cx, cy, proj, path, rotLon = 0, rotLat = -18, dragging = false, running = false, raf = 0;
+    var W, H, R, cx, cy, proj, path, rotLon = 0, running = false, raf = 0;
     var land = null, borders = null, grat = d3.geoGraticule10();
     var cities = [[-0.1, 51.5], [-74, 40.7], [8.7, 50.1], [4.9, 52.4], [2.3, 48.9], [103.8, 1.35], [139.7, 35.7], [114.2, 22.3], [55.3, 25.2], [151.2, -33.9], [-122.4, 37.8], [72.9, 19], [-46.6, -23.5], [-79.4, 43.7], [-3.7, 40.4], [9.2, 45.5], [18.1, 59.3], [-6.3, 53.3], [-9.1, 38.7], [23.7, 37.9], [37.6, 55.7]];
     var ridx = [[0, 1], [0, 2], [2, 5], [1, 10], [0, 5], [6, 7], [0, 17], [14, 18], [3, 0], [8, 5], [1, 13], [0, 20], [15, 5], [6, 9], [4, 2], [16, 0]];
@@ -65,7 +65,7 @@
       W = c.clientWidth; H = c.clientHeight;
       c.width = W * DPR; c.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
       R = Math.min(W, H) * 0.42; cx = W / 2; cy = H / 2;
-      proj = d3.geoOrthographic().translate([cx, cy]).scale(R).clipAngle(90).rotate([rotLon, rotLat]);
+      proj = d3.geoOrthographic().translate([cx, cy]).scale(R).clipAngle(90).rotate([rotLon, -18]);
       path = d3.geoPath(proj, ctx);
     }
     function vis(p) { var r = proj.rotate(); return d3.geoDistance(p, [-r[0], -r[1]]) < Math.PI / 2; }
@@ -106,40 +106,13 @@
     }
     function tick() {
       if (!running) return;
-      if (!dragging) rotLon += 0.11;
-      proj.rotate([rotLon, rotLat]);
+      rotLon += 0.11; proj.rotate([rotLon, -18]);
       for (var i = 0; i < routes.length; i++) { routes[i].ph += 0.004; if (routes[i].ph > 1) routes[i].ph -= 1; }
       draw();
       raf = requestAnimationFrame(tick);
     }
     size();
     window.addEventListener("resize", function () { size(); if (!running) draw(); });
-
-    /* drag to rotate — desktop pointers only, so touch scrolling is never trapped.
-       Auto-rotation pauses while dragging and resumes from wherever it's left. */
-    if (!reduced && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-      var lastX = 0, lastY = 0;
-      c.style.cursor = "grab";
-      c.addEventListener("pointerdown", function (e) {
-        dragging = true; lastX = e.clientX; lastY = e.clientY;
-        c.style.cursor = "grabbing";
-        try { c.setPointerCapture(e.pointerId); } catch (err) {}
-      });
-      c.addEventListener("pointermove", function (e) {
-        if (!dragging) return;
-        rotLon += (e.clientX - lastX) * 0.26;
-        rotLat = Math.max(-82, Math.min(82, rotLat - (e.clientY - lastY) * 0.26));
-        lastX = e.clientX; lastY = e.clientY;
-        proj.rotate([rotLon, rotLat]);
-        if (!running) draw();
-      });
-      var endDrag = function (e) {
-        if (!dragging) return; dragging = false; c.style.cursor = "grab";
-        try { c.releasePointerCapture(e.pointerId); } catch (err) {}
-      };
-      c.addEventListener("pointerup", endDrag);
-      c.addEventListener("pointercancel", endDrag);
-    }
     d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(function (w) {
       land = topojson.feature(w, w.objects.countries);
       borders = topojson.mesh(w, w.objects.countries, function (a, b) { return a !== b; });

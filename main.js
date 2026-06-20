@@ -116,62 +116,6 @@
     });
   }
 
-  /* ---------- Hero settle (short pin + scrub) ----------
-     The hero sinks as you enter: video pushes in, the headline drifts up and
-     recedes, then it releases into the page. Enhancement only — without GSAP or
-     with reduced-motion the hero just scrolls normally. */
-  if (hasGSAP && !reduced) {
-    var heroEl = $("[data-hero]");
-    var heroInner = $(".hero-inner");
-    var heroVideoEl = $(".hero-video");
-    var heroCue = $(".scroll-cue");
-    if (heroEl && heroInner) {
-      var heroTL = gsap.timeline({
-        scrollTrigger: {
-          trigger: heroEl,
-          start: "top top",
-          end: "+=62%",
-          scrub: 0.6,
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true
-        }
-      });
-      heroTL.to(heroInner, { yPercent: -7, opacity: 0, ease: "none" }, 0);
-      if (heroVideoEl) heroTL.to(heroVideoEl, { scale: 1.12, ease: "none" }, 0);
-      if (heroCue) heroTL.to(heroCue, { opacity: 0, ease: "none", duration: 0.35 }, 0);
-    }
-  }
-
-  /* ---------- Hero water word: layer the moving video over the static still ----------
-     Only on engines that render a masked SVG <video> correctly. WebKit (iOS + desktop
-     Safari) ignores the mask on <foreignObject> and would paint a raw video rectangle,
-     so it keeps the static pattern fill baked into the SVG. */
-  if (!reduced) {
-    var heroWater = $(".hero-water");
-    var ua = navigator.userAgent || "";
-    var isWebKit = (navigator.vendor && navigator.vendor.indexOf("Apple") > -1) ||
-                   /iP(hone|ad|od)/.test(ua) ||
-                   (/Safari/.test(ua) && !/Chrome|Chromium|CriOS|FxiOS|Android|Edg|OPR|Firefox/.test(ua));
-    if (heroWater && !isWebKit) {
-      var SVGNS = "http://www.w3.org/2000/svg", XHTML = "http://www.w3.org/1999/xhtml";
-      var fo = document.createElementNS(SVGNS, "foreignObject");
-      fo.setAttribute("x", "0"); fo.setAttribute("y", "0");
-      fo.setAttribute("width", "620"); fo.setAttribute("height", "134");
-      fo.setAttribute("mask", "url(#hero-water-mask)");
-      var vid = document.createElementNS(XHTML, "video");
-      vid.setAttribute("class", "hero-water-video");
-      vid.autoplay = true; vid.muted = true; vid.loop = true;
-      vid.setAttribute("muted", ""); vid.setAttribute("playsinline", "");
-      vid.setAttribute("preload", "auto"); vid.setAttribute("poster", "hero-poster.jpg");
-      var src = document.createElementNS(XHTML, "source");
-      src.setAttribute("src", "hero-1080.mp4"); src.setAttribute("type", "video/mp4");
-      vid.appendChild(src); fo.appendChild(vid); heroWater.appendChild(fo);
-      if (vid.play) { var pp = vid.play(); if (pp && pp.catch) pp.catch(function () {}); }
-    }
-  }
-
   /* ---------- Magnetic buttons ---------- */
   if (!reduced && window.matchMedia("(hover: hover)").matches) {
     $$("[data-magnetic]").forEach(function (el) {

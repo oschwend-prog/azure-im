@@ -130,6 +130,29 @@
     });
   }
 
+  /* ---------- Custom cursor ---------- */
+  if (!reduced && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    var dot = document.createElement("div"); dot.className = "cursor-dot";
+    var ring = document.createElement("div"); ring.className = "cursor-ring";
+    document.body.appendChild(dot); document.body.appendChild(ring);
+    document.body.classList.add("cursor-on");
+    var mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my;
+    window.addEventListener("mousemove", function (e) {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = "translate(" + mx + "px," + my + "px)";
+    });
+    (function loop() {
+      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+      ring.style.transform = "translate(" + rx + "px," + ry + "px)";
+      requestAnimationFrame(loop);
+    })();
+    var hov = "a, button, [data-magnetic], .text-link, input, textarea, label";
+    document.addEventListener("mouseover", function (e) { if (e.target.closest(hov)) ring.classList.add("hover"); });
+    document.addEventListener("mouseout", function (e) { if (e.target.closest(hov)) ring.classList.remove("hover"); });
+    document.addEventListener("mouseleave", function () { dot.style.opacity = "0"; ring.style.opacity = "0"; });
+    document.addEventListener("mouseenter", function () { dot.style.opacity = "1"; ring.style.opacity = "1"; });
+  }
+
   /* ---------- Contact form ---------- */
   var form = $("[data-contact-form]");
   if (form) {

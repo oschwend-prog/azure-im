@@ -191,7 +191,11 @@ img { display: block; max-width: 100%; }
    Pure HTML/SVG/CSS; height is in em so it scales with the headline and matches lines 1–2. */
 .line--water { overflow: hidden; padding-bottom: 0.22em; }
 .hero-water {
-  display: block; width: auto; height: 1.14em; overflow: visible;
+  display: block; height: 1.14em; overflow: visible;
+  /* explicit width (≈ viewBox ratio 620/134) so iOS Safari can't collapse the
+     inline SVG to 0 — WebKit won't derive width from the viewBox on its own.
+     aspect-ratio is a modern backstop; max-width keeps it inside small screens. */
+  width: 5.27em; aspect-ratio: 620 / 134; max-width: 100%;
   /* soft navy halo so the water-filled letters separate from any backdrop
      (mirrors the shadow the old azure accent word carried) */
   filter: drop-shadow(0 3px 16px rgba(12, 24, 48, 0.6));

@@ -2,6 +2,12 @@
   "redirects": [
     {
       "source": "/:path*",
+      "has": [{ "type": "host", "value": "mail.azure-im.com" }],
+      "destination": "https://webmail.networksolutionsemail.com/",
+      "permanent": false
+    },
+    {
+      "source": "/:path*",
       "has": [{ "type": "host", "value": "azure-im.com" }],
       "destination": "https://www.azure-im.com/:path*",
       "permanent": true

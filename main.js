@@ -1,6 +1,6 @@
 /* ============================================================
    azure IM — interaction layer (progressive enhancement)
-   Works fully without libraries; Lenis + GSAP elevate when present.
+   Works fully without libraries; GSAP adds parallax when present.
    ============================================================ */
 (function () {
   "use strict";
@@ -12,21 +12,7 @@
 
   if (hasGSAP) { gsap.registerPlugin(ScrollTrigger); }
 
-  /* ---------- Smooth scroll (Lenis) ---------- */
-  var lenis = null;
-  if (window.Lenis && !reduced) {
-    lenis = new Lenis({ duration: 1.1, smoothWheel: true, lerp: 0.1 });
-    if (hasGSAP) {
-      lenis.on("scroll", ScrollTrigger.update);
-      gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
-      gsap.ticker.lagSmoothing(0);
-    } else {
-      var raf = function (t) { lenis.raf(t); requestAnimationFrame(raf); };
-      requestAnimationFrame(raf);
-    }
-  }
-
-  /* ---------- Anchor links route through Lenis ---------- */
+  /* ---------- Anchor links: native scroll, then move focus to the section ---------- */
   $$('a[href^="#"]').forEach(function (a) {
     a.addEventListener("click", function (e) {
       var id = a.getAttribute("href");
@@ -35,8 +21,10 @@
       if (!target) return;
       e.preventDefault();
       closeMenu();
-      if (lenis) lenis.scrollTo(target, { offset: 0, duration: 1.2 });
-      else target.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+      target.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+      if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+      target.focus({ preventScroll: true });
+      if (history.replaceState) history.replaceState(null, "", id);
     });
   });
 
@@ -51,8 +39,7 @@
       progress.style.width = (h > 0 ? (y / h) * 100 : 0) + "%";
     }
   }
-  if (lenis) lenis.on("scroll", function (e) { onScroll(e.scroll); });
-  window.addEventListener("scroll", function () { if (!lenis) onScroll(); }, { passive: true });
+  window.addEventListener("scroll", function () { onScroll(); }, { passive: true });
   onScroll(0);
 
   /* ---------- Mobile menu ---------- */
@@ -69,6 +56,12 @@
       toggle.setAttribute("aria-expanded", String(!open));
       menu.classList.toggle("open", !open);
     });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && menu.classList.contains("open")) { closeMenu(); toggle.focus(); }
+    });
+    document.addEventListener("click", function (e) {
+      if (menu.classList.contains("open") && !menu.contains(e.target) && !toggle.contains(e.target)) closeMenu();
+    });
   }
 
   /* ---------- Reveal on scroll (IntersectionObserver — always reliable) ---------- */
@@ -81,7 +74,7 @@
         if (en.isIntersecting) {
           var el = en.target;
           var delay = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
-          el.style.transitionDelay = Math.min(delay * 60, 240) + "ms";
+          el.style.transitionDelay = Math.min(delay * 50, 150) + "ms";
           el.classList.add("in");
           io.unobserve(el);
         }
@@ -116,79 +109,50 @@
     });
   }
 
-  /* ---------- Magnetic buttons ---------- */
-  if (!reduced && window.matchMedia("(hover: hover)").matches) {
-    $$("[data-magnetic]").forEach(function (el) {
-      var strength = 0.3;
-      el.addEventListener("pointermove", function (e) {
-        var r = el.getBoundingClientRect();
-        var x = (e.clientX - (r.left + r.width / 2)) * strength;
-        var y = (e.clientY - (r.top + r.height / 2)) * strength;
-        el.style.transform = "translate(" + x + "px," + y + "px)";
-      });
-      el.addEventListener("pointerleave", function () { el.style.transform = ""; });
-    });
-  }
-
-  /* ---------- Custom cursor ---------- */
-  if (!reduced && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-    var dot = document.createElement("div"); dot.className = "cursor-dot";
-    var ring = document.createElement("div"); ring.className = "cursor-ring";
-    document.body.appendChild(dot); document.body.appendChild(ring);
-    document.body.classList.add("cursor-on");
-    var mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my;
-    window.addEventListener("mousemove", function (e) {
-      mx = e.clientX; my = e.clientY;
-      dot.style.transform = "translate(" + mx + "px," + my + "px)";
-    });
-    (function loop() {
-      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
-      ring.style.transform = "translate(" + rx + "px," + ry + "px)";
-      requestAnimationFrame(loop);
-    })();
-    var hov = "a, button, [data-magnetic], .text-link, input, textarea, label";
-    document.addEventListener("mouseover", function (e) { if (e.target.closest(hov)) ring.classList.add("hover"); });
-    document.addEventListener("mouseout", function (e) { if (e.target.closest(hov)) ring.classList.remove("hover"); });
-    document.addEventListener("mouseleave", function () { dot.style.opacity = "0"; ring.style.opacity = "0"; });
-    document.addEventListener("mouseenter", function () { dot.style.opacity = "1"; ring.style.opacity = "1"; });
-  }
-
-  /* ---------- Contact form ---------- */
+  /* ---------- Contact form -> /api/contact (emails info@azure-im.com) ---------- */
   var form = $("[data-contact-form]");
   if (form) {
     var status = $("[data-form-status]");
-    var action = form.getAttribute("action") || "";
-    var configured = action.indexOf("your-form-id") === -1 && action.indexOf("formspree") !== -1;
+    var submitBtn = form.querySelector('button[type="submit"]');
+    var startedAt = Date.now();
+    var FALLBACK = "Sorry, the message could not be sent. Please email info@azure-im.com.";
+    function setStatus(text, cls) {
+      if (!status) return;
+      status.textContent = text;
+      status.className = "form-status" + (cls ? " " + cls : "");
+    }
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var data = new FormData(form);
+      var payload = {
+        name: String(data.get("name") || "").trim(),
+        email: String(data.get("email") || "").trim(),
+        message: String(data.get("message") || "").trim(),
+        website: String(data.get("website") || ""),
+        elapsed: Date.now() - startedAt
+      };
+      setStatus("Sending…");
+      if (submitBtn) submitBtn.disabled = true;
 
-      if (!configured) {
-        var subject = encodeURIComponent("Enquiry from azure-im.com — " + (data.get("name") || ""));
-        var body = encodeURIComponent(
-          "Name: " + (data.get("name") || "") + "\n" +
-          "Email: " + (data.get("email") || "") + "\n\n" +
-          (data.get("message") || "")
-        );
-        window.location.href = "mailto:info@azure-im.com?subject=" + subject + "&body=" + body;
-        if (status) { status.textContent = "Opening your email app…"; status.className = "form-status ok"; }
-        return;
-      }
-
-      if (status) { status.textContent = "Sending…"; status.className = "form-status"; }
-      fetch(action, { method: "POST", body: data, headers: { Accept: "application/json" } })
+      fetch(form.getAttribute("action") || "/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload)
+      })
         .then(function (r) {
-          if (r.ok) {
+          return r.json().catch(function () { return {}; }).then(function (body) { return { ok: r.ok, body: body }; });
+        })
+        .then(function (res) {
+          if (res.ok) {
             form.reset();
-            if (status) { status.textContent = "Thank you — we'll be in touch shortly."; status.className = "form-status ok"; }
+            setStatus("Thank you. Your message has been sent and we will reply by email.", "ok");
           } else {
-            if (status) { status.textContent = "Something went wrong. Please email info@azure-im.com."; status.className = "form-status err"; }
+            setStatus((res.body && res.body.error) || FALLBACK, "err");
           }
         })
-        .catch(function () {
-          if (status) { status.textContent = "Network error. Please email info@azure-im.com."; status.className = "form-status err"; }
-        });
+        .catch(function () { setStatus("Network error. Please email info@azure-im.com.", "err"); })
+        .then(function () { if (submitBtn) submitBtn.disabled = false; });
     });
   }
 
